@@ -103,6 +103,13 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        try {
+            $product->delete();
+            toastr()->warning('Product deleted successfully');
+            return back();
+        } catch (\Throwable $th) {
+            toastr()->error('Something went wrong while deleting the product');
+            return back();
+        }
     }
 }

@@ -34,8 +34,9 @@
             <span>Proudct</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded"> 
-                <a class="collapse-item" href="{{ route('products.product.index') }}">Proudct List</a> 
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ route('products.product.index') }}">Proudct List</a>
+                <a class="collapse-item" href="{{ route('products.sales.sale.index') }}">Sale List</a>
             </div>
         </div>
     </li>

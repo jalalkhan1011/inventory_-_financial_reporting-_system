@@ -20,4 +20,9 @@ class Sale extends Model
     {
         return $this->belongsTo(Product::class, 'product_id');
     }
+
+    public function journals()
+    {
+        return $this->hasMany(Journal::class);
+    }
 }

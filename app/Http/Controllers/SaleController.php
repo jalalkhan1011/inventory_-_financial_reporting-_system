@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Journal;
 use App\Models\Product;
 use App\Models\Sale;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class SaleController extends Controller
     public function index()
     {
         $products = Product::all();
-        $sales = Sale::with('product')->latest()->get(); 
+        $sales = Sale::with('product')->latest()->get();
         return view('admin.product.sale.index', compact('sales', 'products'));
     }
 
@@ -39,8 +40,8 @@ class SaleController extends Controller
         $request->validate([
             'product_id' => 'required|exists:products,id',
             'qty' => 'required|integer|min:1',
-            'discount' => 'nullable|numeric|min:0', 
-            'paid' => 'required|numeric|min:0', 
+            'discount' => 'nullable|numeric|min:0',
+            'paid' => 'required|numeric|min:0',
         ]);
 
         DB::beginTransaction();
@@ -70,6 +71,14 @@ class SaleController extends Controller
                 't_amount' => $totalAmount,
                 'paid' => $request->paid,
                 'due' => $dueAmount,
+            ]);
+
+            Journal::insert([
+                ['sale_id' => $sale->id, 'j_type' => 'sale', 'j_total' => $saleUnitPrice * $qty, 'created_at' => now()],
+                ['sale_id' => $sale->id, 'j_type' => 'discount', 'j_total' => $discountAmount, 'created_at' => now()],
+                ['sale_id' => $sale->id, 'j_type' => 'vat', 'j_total' => $vatAmount, 'created_at' => now()],
+                ['sale_id' => $sale->id, 'j_type' => 'paid', 'j_total' => $request->paid, 'created_at' => now()],
+                ['sale_id' => $sale->id, 'j_type' => 'due', 'j_total' => $dueAmount, 'created_at' => now()],
             ]);
 
             DB::commit();

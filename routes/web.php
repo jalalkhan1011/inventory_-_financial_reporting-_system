@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\JournalController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SaleController;
 use Illuminate\Support\Facades\Auth;
@@ -19,5 +20,9 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix('sales')->name('sales.')->group(function () {
             Route::resource('/sale', SaleController::class);
         });
+    });
+
+    Route::prefix('accounts')->name('accounts.')->group(function () {
+        Route::get('/journal-report', [JournalController::class, 'index'])->name('journalReport');
     });
 });

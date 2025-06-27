@@ -7,6 +7,16 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## step for run this application
+1. First clone the project from git.
+2. Then run the composer update command.
+3. You need to run nmp i and npm run build or npm run dev commend. 
+4. You need to crate a database into your local pc serve.
+5. you need to add database into your project .env file
+6. You need to run php artisan migate for migarting database table.
+5. Then put this http://127.0.0.1:8000/ address on to your broser for run this application.
+6. Then register and use the application.
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
